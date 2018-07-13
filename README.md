@@ -1,2 +1,3 @@
-# tiny-improvements
-Fullstack Application
+# Tiny Improvements
+_________________
+Full-stack App built on the MERN. Made with ❤️.
