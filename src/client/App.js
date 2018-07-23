@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Col, Container, Row, Card, CardBody, Button, Form, FormGroup, Input, Label } from "reactstrap";
 import AwardCard from "./component/AwardCard"
+import KudosForm from "./component/KudosForm"
 
 class App extends Component {
 
@@ -50,17 +51,23 @@ class App extends Component {
         {
           id: 1,
           title: "Best Boss Award!",
-          comment: "Thanks for always looking out for us."
+          comment: "Thanks for always looking out for us.",
+          sender: "Fabian",
+          receiver: "Leon"
         },
         {
           id: 2,
           title: "Longest Commute Award!",
-          comment: "I can't believe Leslie makes it to work as often as she does."
+          comment: "I can't believe Laura makes it to work as often as she does.",
+          sender: "Archit",
+          receiver: "Laura"
         },
         {
           id: 3,
           title: "Most likely to nap at work!",
-          comment: "Maybe you need more coffee."
+          comment: "Maybe you need more coffee.",
+          sender: "Gobi",
+          receiver: "Owen"
         }
       ]
     }
@@ -85,38 +92,16 @@ class App extends Component {
             </Card>
           </Col>
           <Col md="12" lg="9">
-            {this.state.awards.map(e => <AwardCard title={e.title} />)}
+            {this.state.awards.map(e => <AwardCard title={e.title} comment={e.comment} receiver={e.receiver} />)}
           </Col>
         </Row>
-
-
-        <hr />
-        {this.state.students.map(e => <p>{e.name}</p>)}
-        <hr />
-
-        <Form>
-          <FormGroup>
-            <Label>Give Kudos to</Label>
-            <Input type="select" name="select" id="exampleSelect" >
-              {this.state.students.map(e => <option>{e.name}</option>)}
-            </Input>
-          </FormGroup>
-          <Form>
-            <FormGroup>
-              <Input type="text" placeholder="Kudos Title" />
-            </FormGroup>
-          </Form>
-          <Form>
-            <FormGroup>
-              <Input type="textarea" placeholder="Kudos text" />
-            </FormGroup>
-          </Form>
-        </Form>
 
         {/*NEW CODE BELOW*/}
 
         <hr />
-        {this.state.awards.map(e => { <AwardCard title={e.title} /> })}
+
+
+        <KudosForm />
 
 
       </Container>

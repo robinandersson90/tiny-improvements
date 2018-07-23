@@ -5,10 +5,10 @@ const AwardCard = props => (
     <Card>
         <CardBody className="mx-auto">
             <img alt="award" src="http://www.pngmart.com/files/3/Award-PNG-Photos.png" width="50px" />
-            <p>Badge Name</p>
+            <h4> {props.title} </h4>
             <img alt="avatar" src="https://www.iranketab.ir/Images/user.jpg" width="100px" />
-            <h2> {props.title} </h2>
-            <p>Conversion stealth influencer business-to-business entrepreneur hypotheses investor customer deployment metrics learning curve direct mailing long tail mass market. Pitch iteration stock android business-to-consumer bandwidth seed round user experience paradigm shift channels equity pivot. Metrics partner network validation responsive web design first mover advantage backing research & development market mass market innovator sales infrastructure.</p>
+            <h6> {props.receiver} </h6>
+            <p> {props.comment} </p>
         </CardBody>
     </Card>
 )
