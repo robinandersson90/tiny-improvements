@@ -1,78 +1,62 @@
 import React, { Component } from "react";
-import { Col, Container, Row, Card, CardBody, Button, Form, FormGroup, Input, Label } from "reactstrap";
-import AwardCard from "./component/AwardCard"
-import KudosForm from "./component/KudosForm"
+import { Col, Container, Row, Form, FormGroup, Input, Label, Button, Card, CardBody } from "reactstrap";
+import AwardCard from './component/AwardCard';
+import axios from "axios";
+import KudosForm from './component/KudosForm';
 
 class App extends Component {
-
-  constructor() {
-    super();
-    this.state = {
-      students: [
-        {
-          name: "Alia",
-          userId: 10457,
-          position: "Solution Engineer"
-        },
-        {
-          name: "Cody",
-          userId: 10850,
-          position: "Senior Functional Consultant"
-        },
-        {
-          name: "Ana",
-          UserId: 10222,
-          position: "Lead Solution Engineer"
-        }
-      ],
-      restaurants: [
-        {
-          name: 'Maialino',
-          genre: 'Italian',
-          score: 4.4
-        },
-        {
-          name: 'Beyond Sushi',
-          genre: 'Vegan',
-          score: 4.7
-        },
-        {
-          name: 'Abyssinia',
-          genre: 'Ethiopian',
-          score: 4.5
-        },
-        {
-          name: 'La Roja de Todos',
-          genre: 'Chilean',
-          score: 4.5
-        }
-      ],
-      awards: [
-        {
-          id: 1,
-          title: "Best Boss Award!",
-          comment: "Thanks for always looking out for us.",
-          sender: "Fabian",
-          receiver: "Leon"
-        },
-        {
-          id: 2,
-          title: "Longest Commute Award!",
-          comment: "I can't believe Laura makes it to work as often as she does.",
-          sender: "Archit",
-          receiver: "Laura"
-        },
-        {
-          id: 3,
-          title: "Most likely to nap at work!",
-          comment: "Maybe you need more coffee.",
-          sender: "Gobi",
-          receiver: "Owen"
-        }
-      ]
-    }
+  state = {
+    users: [],
+    awards: [],
+    kudosText: "",
+    kudosTitle: "",
+    Giver: "",
+    Sender: "",
   }
 
+  updateKudosText = event => {
+    this.setState({ kudosText: event.target.value });
+  }
+  updateKudosTitle = event => {
+    this.setState({ kudosTitle: event.target.value });
+  }
+  updateGiver = event => {
+    this.setState({ kudosGiver: event.target.value });
+  }
+  updateSender = event => {
+    this.setState({ kudosSender: event.target.value });
+  }
+
+
+  postData = () => {
+    axios.post("/api/kudos", {
+      Giver: this.state.kudosGiver,
+      Sender: this.state.kudosSender,
+      kudosTitle: this.state.kudosTitle,
+      kudosText: this.state.kudosText,
+    })
+      .then(response => {
+        this.setState({
+          awards: response.data
+        })
+      })
+  }
+
+  componentDidMount = () => {
+    axios.get("/api/kudos")
+      .then(response => {
+        this.setState({
+          awards: response.data
+        })
+      })
+
+    axios.get("/api/users")
+      .then(response => {
+        this.setState({
+          users: response.data
+        })
+      })
+  }
 
   render() {
     return (
@@ -92,20 +76,27 @@ class App extends Component {
             </Card>
           </Col>
           <Col md="12" lg="9">
-            {this.state.awards.map(e => <AwardCard title={e.title} comment={e.comment} receiver={e.receiver} />)}
+            {this.state.awards.map(elem => <AwardCard title={elem.title} text={elem.comment} />)}
           </Col>
         </Row>
+        <Row>
+          <Col md="12">
+            <KudosForm
+              users={this.state.users}
+              kudosText={this.state.kudosText}
+              kudosTitle={this.state.kudosTitle}
+              updateKudosText={this.updateKudosText}
+              updateKudosTitle={this.updateKudosTitle}
+              Giver={this.state.Giver}
+              kudosGiver={this.state.updateGiver}
+              Sender={this.state.Sender}
+              kudosSender={this.state.updateSender}
 
-        {/*NEW CODE BELOW*/}
-
-        <hr />
-
-
-        <KudosForm />
-
-
+            />
+          </Col>
+        </Row>
       </Container>
-    );
+    )
   }
 }
 

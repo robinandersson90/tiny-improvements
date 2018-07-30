@@ -1,26 +1,31 @@
 import React from "react";
-import { Col, Row, Container, Form, FormGroup, Input, Label, Button, Card, CardBody } from "reactstrap";
+import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 
 const KudosForm = props => (
-    <Form>
-        <FormGroup>
-            <Label>Give Kudos to</Label>
-            <Input type="select" name="select" id="exampleSelect" >
-            </Input>
-        </FormGroup>
-        <Form>
-            <FormGroup>
-                <Input type="text" placeholder="Kudos Title" />
-            </FormGroup>
-        </Form>
-        <Form>
-            <FormGroup>
-                <Input type="textarea" placeholder="Kudos text" />
-            </FormGroup>
-        </Form>
-    </Form>
+  <Form>
+    <FormGroup>
+      <Label>Give Kudos to</Label>
+      <Input type="select" onChange={props.kudosGiver} value={props.Giver}>
+        {props.users.map(element => <option>{element.name}</option>)}
+      </Input>
+    </FormGroup>
+    <FormGroup>
+    <Label>Kudos Given By</Label>
+      <Input type="select" onChange={props.kudosSender} value={props.Sender}>
+        {props.users.map(element => <option>{element.name}</option>)}
+      </Input>
+    </FormGroup>
+    <FormGroup>
+      <Input type="text" onChange={props.updateKudosTitle} value={props.kudosTitle} />
+    </FormGroup>
+    <FormGroup>
+      <Input type="textarea" onChange={props.updateKudosText} value={props.kudosText} />
+    </FormGroup>
+    <FormGroup>
+      <Button onClick={props.postData}> Submit </Button>
+    </FormGroup>
+  </Form>
 
 )
-
 
 export default KudosForm;
